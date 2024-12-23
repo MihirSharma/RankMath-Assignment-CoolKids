@@ -16,7 +16,6 @@ exports.getUserDataByEmailService = async (email) => {
 
 exports.createNewUserService = async (email) => {
 	let userData = await this.getUserDataByEmailService(email);
-	console.log(userData);
 
 	if (!userData) {
 		let randomUser = await getRandomUserDataService();
@@ -41,7 +40,6 @@ exports.createNewUserService = async (email) => {
 
 exports.getAllUserDataFilteredService = async (requestor_email) => {
 	let userData = await this.getUserDataByEmailService(requestor_email);
-	console.log(userData);
 	if (userData && userData.role === "coolkid") {
 		return false;
 	} else if (userData && userData.role === "coolerkid") {

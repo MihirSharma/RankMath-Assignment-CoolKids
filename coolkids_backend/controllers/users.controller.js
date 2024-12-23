@@ -15,13 +15,11 @@ exports.getUserDetails = async (req, res) => {
 };
 
 exports.createNewUser = async (req, res) => {
-	console.log(req.query);
 	let data = await createNewUserService(req.query.email);
 	res.send(data);
 };
 
 exports.getAllUserDataFiltered = async (req, res) => {
-	console.log(req.query.requestor_email);
 	let data = await getAllUserDataFilteredService(req.query.requestor_email);
 	if (data) {
 		res.send(data);

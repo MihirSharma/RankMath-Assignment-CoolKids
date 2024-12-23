@@ -5,6 +5,7 @@ const dbinit = require("./services/db_initializer.service");
 const bodyParser = require("body-parser");
 const app = express();
 const port = 8080;
+// const authJwt = require("./middleware/authJwt");
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "100mb" }));
@@ -18,5 +19,6 @@ db.sequelize.sync();
 
 require("./routes/generateRandomUserData.routes")(app);
 require("./routes/users.routes")(app);
+require("./routes/maintainer.routes")(app);
 
 app.listen(port, () => console.log(`Coolkids app listening on port ${port}!`));
