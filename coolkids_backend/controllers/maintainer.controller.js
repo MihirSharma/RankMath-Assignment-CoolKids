@@ -10,8 +10,12 @@ const {
 // const Op = db.Sequelize.Op;
 
 exports.getUserDetailsMaintainer = async (req, res) => {
-	let data = await getUserDataByEmailService(req.query.email);
-	res.send(data);
+	if (req.query && req.query.email) {
+		let data = await getUserDataByEmailService(req.query.email);
+		res.send(data);
+	} else {
+		res.status(400).send("No data provided");
+	}
 };
 
 exports.getAllUserDataMaintainer = async (req, res) => {
@@ -20,6 +24,13 @@ exports.getAllUserDataMaintainer = async (req, res) => {
 };
 
 exports.updateUserRole = async (req, res) => {
-	let data = await updateUserRoleService(req.body.email, req.body.newRole);
-	res.send(data);
+	if (req.body && req.body.email && req.body.newRole) {
+		let data = await updateUserRoleService(
+			req.body.email,
+			req.body.newRole
+		);
+		res.send(data);
+	} else {
+		res.status(400).send("No data provided");
+	}
 };
