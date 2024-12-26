@@ -10,10 +10,7 @@ module.exports = function (app) {
 		next();
 	});
 
-	app.post("/api/auth/login", (req, res) => {
-		const token = authJwt.generateToken(req.body.email);
-		res.json({ token });
-	});
+	app.post("/api/auth/login", controller.loginMaintainer);
 
 	app.get(
 		"/api/maintainer/get_user_details",

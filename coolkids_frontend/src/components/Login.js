@@ -4,19 +4,28 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import validateEmail from "@/utils/validate_email";
 import Axios from "@/utils/axios";
 
-function Login() {
+function Login(props) {
 	const [email, setEmail] = useState("");
 	const [isValidEmail, setIsValidEmail] = useState(false);
-	console.log(isValidEmail, Boolean(email));
+	const [data, setData] = useState(null);
+	// console.log(isValidEmail, Boolean(email));
+	console.log(props);
+
 	useEffect(() => {
-		Axios.get("/api")
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.error(error.message);
-			});
-	}, []);
+		props.pageSetter(data && data.data && data.data.role);
+		props.dataSetter(data && data.data);
+		console.log(data);
+	}, [data]);
+
+	const handleLogin = async () => {
+		try {
+			const dataCall = await Axios.get(`/api/login?email=${email}`);
+			console.log(dataCall);
+			setData(dataCall);
+		} catch (err) {
+			console.log(err.message);
+		}
+	};
 	return (
 		<div className="bg-white/70 mb-6 flex flex-row justify-center align-baseline ">
 			<div className="m-3">
@@ -55,7 +64,9 @@ function Login() {
 					type="password"
 				/>
 			</div>
-			<div className="cursor-pointer flex flex-col align-middle justify-center border-green-500 border-solid border-y-8">
+			<div
+				onClick={handleLogin}
+				className="cursor-pointer flex flex-col align-middle justify-center border-green-500 border-solid border-y-8">
 				<KeyboardDoubleArrowRightIcon
 					style={{ color: "#009900", fontSize: 60 }}
 					className="hover:animate-gnr"

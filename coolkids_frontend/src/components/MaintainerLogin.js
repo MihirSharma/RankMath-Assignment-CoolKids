@@ -1,10 +1,10 @@
+import React, { useState, useEffect } from "react";
 import { Input, TextField } from "@mui/material";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import React, { useState, useEffect } from "react";
 import validateEmail from "@/utils/validate_email";
 import Axios from "@/utils/axios";
 
-function Register(props) {
+function MaintainerLogin(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isValidEmail, setIsValidEmail] = useState(false);
@@ -13,20 +13,28 @@ function Register(props) {
 	console.log(props);
 
 	useEffect(() => {
-		props.pageSetter("home");
-		// props.dataSetter(data && data.data);
+		props.pageSetter(
+			data && data.data && data.data.role ? data.data.role : "home"
+		);
+		props.dataSetter(data && data.data);
 		console.log(data);
 	}, [data]);
 
-	const handleRegister = async () => {
+	const handleLogin = async () => {
 		try {
-			const dataCall = await Axios.get(
-				`/api/create_new_user?email=${email}`
-			);
+			const dataCall = await Axios.post(`/api/auth/login`, {
+				email,
+				password,
+			});
 			console.log(dataCall);
+			localStorage.setItem("token", dataCall.data.token);
 			setData(dataCall);
 		} catch (err) {
 			console.log(err.message);
+			if (err.status === 401) {
+				console.log(`Error : ${typeof err.status}`);
+				// setData(1);
+			}
 		}
 	};
 	return (
@@ -71,9 +79,10 @@ function Register(props) {
 					}}
 				/>
 			</div>
-			<div className="cursor-pointer flex flex-col align-middle justify-center border-green-500 border-solid border-y-8">
+			<div
+				onClick={handleLogin}
+				className="cursor-pointer flex flex-col align-middle justify-center border-green-500 border-solid border-y-8">
 				<KeyboardDoubleArrowRightIcon
-					onClick={handleRegister}
 					style={{ color: "#009900", fontSize: 60 }}
 					className="hover:animate-gnr"
 				/>
@@ -82,4 +91,4 @@ function Register(props) {
 	);
 }
 
-export default Register;
+export default MaintainerLogin;
