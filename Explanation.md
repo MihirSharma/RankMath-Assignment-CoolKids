@@ -34,8 +34,21 @@ The maintainer - A superuser with the ability to elevate other users.
 ### 3. Database
 
 -   PostgreSQL
+-   database name : coolkidsdb
+-   all database specifications can be updated in the db.config.js file in the folder ./coolkids_backend/config
 
-•
-The technical decisions you made and why.
-•
-How your solution achieves the admin’s desired outcome per the user story.
+## Technical Decisions
+
+The primary technical decision made was to isolate the user and maintainer endpoints on the backend and functions and pages on the frontend. This allowed for more security in the application and the ability to update user and maintainer functionality in the future without affecting the other.
+
+Additionally, the decision to use Axios instead of fetch to get data from throughout the application was made for the convinience offered by Axios in parsing, its easier syntax when handling more complex MIME types and the ability to create instances for use with config files.
+
+## How the solution achieves the admin’s desired outcome per the user story.
+
+All maintainer APIs are isolated from the user APIs, and are the only ones which require a strict login to access. **(default maintainer data : {email: admin@admin.com, password : admin})**
+
+Additionally, user role may be updated through a column in the table showing all user data, eliminating the need for multiple page jumps.
+
+The user roles have been capped on the Database side using an ENUM type.
+
+Coolerkid and Coolestkid data limitations are baked into the backend, only providing the user with authorized data through a DB query.
