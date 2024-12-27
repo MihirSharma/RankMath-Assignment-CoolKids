@@ -18,22 +18,22 @@ The maintainer - A superuser with the ability to elevate other users.
 
 ### 1. Frontend
 
-Framework - Next.js
-Style - Tailwind
-Interface elements - Material UI
-API calls - Axios
+-   Framework - Next.js
+-   Style - Tailwind
+-   Interface elements - Material UI
+-   API calls - Axios
 
 ### 2. Backend
 
-Node.js
-Express
-Authentication - jsonwebtoken
-API calls - Axios
-DB Integration - Sequelize
+-   Node.js
+-   Express
+-   Authentication - jsonwebtoken
+-   API calls - Axios
+-   DB Integration - Sequelize
 
 ### 3. Database
 
-PostgreSQL
+-   PostgreSQL
 
 •
 The technical decisions you made and why.
